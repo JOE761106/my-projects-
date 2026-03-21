@@ -1,0 +1,16 @@
+V-1:
+	-This is the basic version of the app
+	-Contains:
+		-Features to gain weight 
+		-Features to lose weight 
+		-And if possible Features to maintain ones weight 
+	-Structure:
+		A little messy UI and Calculations mixed but im still learning how to make this app so it isnt that bad
+	-Next version:
+	          ===========     
+ \\     //          ||   ||   
+  \\   //           ||   ||        
+   \\ //            ||   ||       
+    \\/             ||   ||         
+     V              ||   ||        
+                    =========  
