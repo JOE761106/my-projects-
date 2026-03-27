@@ -20,6 +20,44 @@ class calorie_app:
         self.tdee = 0.0
         self.calories = 0.0
         self.productivity = 0
+        self.calories_per_100g={
+            "apple": 52,
+            "banana": 89,
+            "orange": 47,
+            "strawberry": 32,
+            "grapes": 69,    
+            "carrot": 41,
+            "broccoli": 34,
+            "tomato": 18,
+            "cucumber": 15,
+            "potato": 77,
+        
+            "rice": 130,
+            "white bread": 265,
+            "pasta": 131,
+            "oats": 389,
+            "corn": 96,
+
+            
+            "egg": 155,
+            "chicken breast": 165,
+            "beef": 250,
+            "tuna": 132,
+            "lentils": 116,
+            "milk": 42,
+            "cheese": 402,
+            "yogurt": 59,
+            "butter": 717,
+            "mozzarella": 280,
+            "almonds": 579,
+            "peanuts": 567,
+            "walnuts": 654,
+            "cashews": 553,
+            "olive oil": 884,
+
+    }
+
+
         for i, text in enumerate(asking):
             tk.Label(window, text=text).grid(row=i, column=0, padx=10, pady=10)
 
@@ -92,4 +130,4 @@ window = tk.Tk()
 app = calorie_app(window)   
 
 window.mainloop()
-#g
+
