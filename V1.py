@@ -84,7 +84,7 @@ class calorie_app:
             widget.destroy()
         self.calc_calories()
     def calc_calories(self):
-        self.bmr = 10 * self.weight + 6.25 * self.height - 5 * self.age + 5
+        self.bmr = 10 * self.weight + 6.25 * (self.height * 100) - 5 * self.age + 5
         if self.productivity == 0:
             self.activity = 1.2
         elif self.productivity <= 2:
@@ -120,8 +120,11 @@ class calorie_app:
         tk.Label(self.window, text="https://en.wikipedia.org/wiki/Bodybuilding").grid(row=2, column=0, padx=10, pady=10)
 
     def fourth_page(self):
-        pass
-
+        tk.Label(self.window , text="goal:"+str(self.calories) , font=("Helvetica" , 10 , "bold")).grid(row = 2 , column=0 , padx=10 , pady=10 )
+        tk.Label(self.window , text="eaten:" , font=("Helvetica" , 10 , "bold")).grid(row = 3 , column=0 , padx=10 , pady=10 )
+        tk.Label(self.window , text="remaining:" , font=("Helvetica" , 20 , "bold")).grid(row = 4 , column=0 , padx=10 , pady=10 )
+        tk.Button(self.window , text="add food:" , font=("Helvetica" , 13 , "bold")).grid(row = 5 , column=0 , padx=10 , pady=10 )
+        tk.Label(self.window , text="meal history:" , font=("Helvetica" , 14 , "bold")).grid(row = 6 , column=0 , padx=10 , pady=10 )
 
 
 
@@ -130,4 +133,4 @@ window = tk.Tk()
 app = calorie_app(window)   
 
 window.mainloop()
-
+#added main menu page 
