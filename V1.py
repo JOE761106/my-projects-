@@ -20,6 +20,9 @@ class calorie_app:
         self.tdee = 0.0
         self.calories = 0.0
         self.productivity = 0
+        self.meal_history = []
+        self.calories_eaten = 0.0
+        self.remain = 0.0
         self.calories_per_100g={
             "apple": 52,
             "banana": 89,
@@ -89,7 +92,7 @@ class calorie_app:
             self.activity = 1.2
         elif self.productivity <= 2:
             self.activity = 1.375
-        elif self.productivity <= 4:
+        elif self.productivity <= 4: 
             self.activity = 1.55
         elif self.productivity <= 6:
             self.activity = 1.725
@@ -125,16 +128,44 @@ class calorie_app:
         if 18.5<self.bmi<24.9:
             self.calories = self.tdee
         tk.Label(self.window , text="goal:"+str(self.calories) , font=("Helvetica" , 10 , "bold")).grid(row = 2 , column=0 , padx=10 , pady=10 )
-        tk.Label(self.window , text="eaten:" , font=("Helvetica" , 10 , "bold")).grid(row = 3 , column=0 , padx=10 , pady=10 )
-        tk.Label(self.window , text="remaining:" , font=("Helvetica" , 20 , "bold")).grid(row = 4 , column=0 , padx=10 , pady=10 )
+        tk.Label(self.window , text="eaten:" + str(int(self.calories_eaten)), font=("Helvetica" , 10 , "bold")).grid(row = 3 , column=0 , padx=10 , pady=10 )
+        remaining = self.calories - self.calories_eaten
+        tk.Label(self.window , text="remaining:" +str(remaining)  , font=("Helvetica" , 20 , "bold")).grid(row = 4 , column=0 , padx=10 , pady=10 )
         tk.Button(self.window , text="add food:" , font=("Helvetica" , 13 , "bold" , ) , command = lambda:[self.delete() , self.calorie_screen()]).grid(row = 5 , column=0 , padx=10 , pady=10 )
         tk.Label(self.window , text="meal history:" , font=("Helvetica" , 14 , "bold")).grid(row = 6 , column=0 , padx=10 , pady=10 )
+        for i, meal in enumerate(self.meal_history):
+            tk.Label(self.window, text=meal).grid(row=11 + i, column=0)
     def calorie_screen(self):
+        self.food_var = tk.StringVar()
+        self.food_var.set("apple")  
+
+        self.food_menu = tk.OptionMenu(
+            self.window,
+            self.food_var,
+            *self.calories_per_100g.keys()
+        )
+        self.food_menu.grid(row=4, column=0, padx=10, pady=1)
+        self.food_menu.grid(row=4, column=0, padx=10, pady=10)
         tk.Label(self.window , text="choose the food you ate" , font=("Helvetica" , 10 , "bold")).grid(row = 3 , column=0 , padx=10 , pady=10 )
         tk.Label(self.window , text="enter amount of grams the food you ate" , font=("Helvetica" , 10 , "bold")).grid(row = 6 , column=0 , padx=10 , pady=10 )
-        tk.Button(self.window , text="confirm" , font=("Helvetica" , 13 , "bold" , ) , command = lambda:[self.delete() , self.fourth_page()]).grid(row = 7 , column=0 , padx=10 , pady=10 )
-        tk.Button(self.window , text="back to main menu" , font=("Helvetica" , 13 , "bold" , ) , command = lambda:[self.delete() , self.fourth_page()]).grid(row = 8 , column=0 , padx=10 , pady=10 )
-
+        self.grams_entry = tk.Entry(self.window)
+        self.grams_entry.grid(row=7, column=0, padx=10, pady=5)
+        tk.Button(
+            self.window,
+            text="confirm",
+            font=("Helvetica", 13, "bold"),
+            command=lambda: [self.add_food(), self.delete(), self.fourth_page()]
+            ).grid(row=9, column=0, padx=10, pady=2)
+        tk.Button(self.window , text="back to main menu" , font=("Helvetica" , 13 , "bold" , ) , command = lambda:[self.delete() , self.fourth_page()]).grid(row = 10 , column=0 , padx=2 , pady=10 )
+    def add_food(self):
+        food = self.food_var.get()
+        grams = float(self.grams_entry.get())
+        calories_for_food = (self.calories_per_100g[food] / 100) * grams
+        self.calories_eaten +=calories_for_food
+        self.meal_history.append(
+            f"{food} - {grams}g ({int(calories_for_food)} cal)"
+    
+        )
 window = tk.Tk()
 
 app = calorie_app(window)   
